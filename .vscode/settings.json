@@ -7,8 +7,7 @@
   "files.exclude": {
     "**/*.egg-info": true,
     ".gitpod.yml": true,
-    "LICENSE": true,
-    ".vscode/": true,
+    "LICENSE": true,    
     "**/__pycache__": true,
     ".gitignore": true,
     ".mypy_cache": true,
@@ -20,6 +19,5 @@
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "cSpell.words": [
-    "mano"
   ]
 }
