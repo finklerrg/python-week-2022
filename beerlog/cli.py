@@ -9,6 +9,7 @@ main = typer.Typer(help="Beer Management Application")
 
 console = Console()
 
+
 @main.command("add")
 def add(
     name: str,
@@ -28,5 +29,12 @@ def add(
 def list_beers(style: Optional[str] = None):
     """Lists all beers from the database."""
     beers = get_beers_from_database()
+    table = Table(title="Beerlog :beer_mug:")
+    headers = ["id", "name", "style", "rate", "date"]
+    for header in headers:
+        table.add_column(header, style="cyan")
     for beer in beers:
-        print(beer)
+        beer.date = beer.date.strftime("%Y-%m-%d")
+        values = [str(getattr(beer, header)) for header in headers]
+        table.add_row(*values)
+    console.print(table)
