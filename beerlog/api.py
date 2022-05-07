@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import FastAPI  # protocol: ASGI
+from fastapi import FastAPI, Response, status  # protocol: ASGI
 from beerlog.core import get_beers_from_database
 from beerlog.database import get_session
 from beerlog.serializers import BeerOut, BeerIn
@@ -16,10 +16,11 @@ async def list_beers():
 
 
 @api.post("/beers", response_model=BeerOut)
-async def add_beer(beer_in: BeerIn):
+async def add_beer(beer_in: BeerIn, response: Response):
     beer = Beer(**beer_in.dict())
     with get_session() as session:
         session.add(beer)
         session.commit()
         session.refresh(beer)
-        return beer
+    response.status_code = status.HTTP_201_CREATED
+    return beer
