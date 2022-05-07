@@ -4,7 +4,7 @@ ARG PYTHON_VERSION=3.8.13
 ARG POETRY_VERSION=1.1.13
 
 # Stage: staging
-FROM python:$PYTHON_VERSION as staging
+FROM python:$PYTHON_VERSION AS staging
 ARG APP_NAME
 ARG APP_PATH
 ARG POETRY_VERSION
@@ -29,7 +29,7 @@ COPY ./poetry.lock ./pyproject.toml ./
 COPY ./$APP_NAME ./$APP_NAME
 
 # Stage: development
-FROM staging as development
+FROM staging AS development
 ARG APP_NAME
 ARG APP_PATH
 WORKDIR $APP_PATH
@@ -38,7 +38,7 @@ ENTRYPOINT ["poetry", "run"]
 CMD ["uvicorn", "beerlog.api:api", "--host=0.0.0.0","--port=8000","--reload"]
 
 # Stage: build
-FROM staging as build
+FROM staging AS build
 ARG APP_PATH
 
 WORKDIR $APP_PATH
@@ -46,7 +46,7 @@ RUN poetry build --format wheel
 RUN poetry export --format requirements.txt --output constraints.txt --without-hashes
 
 # Stage: production
-FROM python:$PYTHON_VERSION as production
+FROM python:$PYTHON_VERSION AS production
 ARG APP_NAME
 ARG APP_PATH
 
