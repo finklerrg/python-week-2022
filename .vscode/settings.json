@@ -20,6 +20,9 @@
   "python.linting.enabled": true,
   "cSpell.words": [
     "ASGI",
-    "dynaconf"
+    "beerlog",
+    "dynaconf",
+    "junitxml",
+    "pytest"
   ]
 }
