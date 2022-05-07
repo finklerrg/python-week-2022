@@ -26,5 +26,6 @@ class BeerIn(BaseModel):
         if v < 0 or v > 10:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"{field.name} must be between 0 and 10")
+                detail=f"{field.name} must be between 0 and 10",
+            )
         return v
